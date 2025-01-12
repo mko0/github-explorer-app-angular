@@ -1,12 +1,24 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { environment } from '../environments/environment';
+import { GithubUserReposComponent } from '../github-user-repos/github-user-repos.component';
 
+/**
+ * Application root component.
+ *
+ * @example
+ * ```html
+ *  <gea-root/>
+ * ```
+ */
 @Component({
   selector: 'gea-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  imports: [GithubUserReposComponent],
 })
 export class AppComponent {
-  title = 'github-explorer-app';
+  readonly externalLink = {
+    gitHub: environment.gitHubUrl,
+    linkedIn: environment.linkedInUrl,
+  };
 }
