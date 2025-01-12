@@ -44,7 +44,12 @@ module.exports = tseslint.config(
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,
     ],
-    rules: {},
+    rules: {
+      "@angular-eslint/template/elements-content": [
+        "error",
+        { allowList: ["geaBtnIcon"] },
+      ],
+    },
   },
   {
     files: ["**/*.cy.ts", "**/*.spec.ts", "cypress/**/*"],

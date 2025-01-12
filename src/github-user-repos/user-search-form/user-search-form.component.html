@@ -7,17 +7,19 @@
       "
       [formControl]="form().controls.username"
       placeholder="GitHub username ..."
+      name="username"
       data-cy="username-input"
     />
     <button
-      class="flex place-items-center shadow hover:cursor-pointer disabled:opacity-30 transition rounded-tr-md rounded-br-md bg-blue-500 text-white hover:bg-blue-600 px-3 py-3"
+      geaBtn
+      geaBtnIcon="search"
+      geaBtnLabel="Search"
+      geaBtnRounded="right"
+      geaBtnColor="primary"
       [disabled]="!form().valid"
       type="submit"
       data-cy="search-button"
-    >
-      <span class="material-symbols-outlined">search</span>
-      <span class="pl-2">Search</span>
-    </button>
+    ></button>
   </div>
   <gea-control-error [control]="form().controls.username" />
 </form>

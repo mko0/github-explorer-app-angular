@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ControlErrorComponent } from '../../shared/components/control-error/control-error.component';
+import { ButtonDirective } from '../../shared/directives/button.directive';
 import { SearchForm, SearchFormValue } from './user-search.form';
 
 /**
@@ -14,7 +15,7 @@ import { SearchForm, SearchFormValue } from './user-search.form';
 @Component({
   selector: 'gea-user-search-form',
   templateUrl: './user-search-form.component.html',
-  imports: [ReactiveFormsModule, ControlErrorComponent],
+  imports: [ReactiveFormsModule, ControlErrorComponent, ButtonDirective],
 })
 export class UserSearchFormComponent {
   readonly form = input<SearchForm>(new SearchForm());

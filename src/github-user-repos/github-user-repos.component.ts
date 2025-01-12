@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { LoadingComponent } from '../shared/components/loading/loading.component';
 import { RequestState } from '../shared/classes/request-state.class';
+import { ButtonDirective } from '../shared/directives/button.directive';
 import { SearchFormValue } from './user-search-form/user-search.form';
 import { UserSearchFormComponent } from './user-search-form/user-search-form.component';
 import {
@@ -24,6 +25,7 @@ import {
   imports: [
     UserSearchFormComponent,
     LoadingComponent,
+    ButtonDirective,
     AsyncPipe,
     NgTemplateOutlet,
   ],
