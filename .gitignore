@@ -45,3 +45,8 @@ Thumbs.db
 /.husky
 /cypress/screenshots
 /test-output
+/src/api/github-client/.openapi-generator
+/src/api/github-client/git_push
+/src/api/github-client/ng-package.json
+/src/api/github-client/package.json
+/src/api/github-client/tsconfig.json

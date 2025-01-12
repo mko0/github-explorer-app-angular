@@ -6,7 +6,7 @@ const unusedImports = require("eslint-plugin-unused-imports");
 module.exports = tseslint.config(
   {
     files: ["**/*.ts"],
-    ignores: ["cypress/**/*"],
+    ignores: ["cypress/**/*", "src/api/github-client/**/*"],
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,

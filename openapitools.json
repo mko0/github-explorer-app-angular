@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.10.0",
+    "useDocker": true,
+    "generators": {
+      "github-api-client": {
+        "generatorName": "typescript-angular",
+        "inputSpec": "src/api/ghes-3.9.2022-11-28.partial.json",
+        "output": "src/api/github-client",
+        "modelNamePrefix": "GitHub",
+        "additionalProperties": {
+          "ngVersion": "19.0.0",
+          "supportsES6": "true",
+          "npmVersion": "10.9.0",
+          "fileNaming": "camelCase",
+          "tsVersion": "5.6.0"
+        }
+      }
+    }
+  }
+}
