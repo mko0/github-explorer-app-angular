@@ -1,6 +1,10 @@
 {
   "name": "github-explorer-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": {
+    "name": "Marcin K.",
+    "email": "mko0@users.noreply.github.com"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

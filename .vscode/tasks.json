@@ -53,7 +53,7 @@
     },
     {
       "type": "shell",
-      "label": "Docker build",
+      "label": "Docker test & build",
       "command": "docker",
       "args": [
         "compose",
