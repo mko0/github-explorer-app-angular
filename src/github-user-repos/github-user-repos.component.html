@@ -1,84 +1,13 @@
 <div class="flex flex-col items-center">
   <gea-user-search-form class="m-6" (userSearch)="onUserSearch($event)" />
 
-  @if (reposState && !reposState.hasError()) {
-    <div class="bg-white rounded-md shadow overflow-x-auto">
-      <div class="grid grid-cols-11">
-        <div class="font-bold pb-4 pt-6 px-6">No.</div>
-        <div
-          class="col-span-5 font-bold pb-4 pt-6 px-6"
-          data-cy="repository-header-name"
-        >
-          Repository name
-        </div>
-        <div
-          class="col-span-5 font-bold pb-4 pt-6 px-6"
-          data-cy="repository-header-owner"
-        >
-          Repository owner
-        </div>
-      </div>
-      @for (
-        repo of reposState.request$() | async;
-        track repo.id;
-        let i = $index
-      ) {
-        <div
-          class="grid grid-cols-11 border-t hover:bg-slate-50"
-          [attr.data-cy]="'repository-id:' + repo.id"
-        >
-          <div class="py-4 px-6">{{ i + 1 }}.</div>
-          <div class="col-span-5 py-4 px-6" data-cy="repository-name">
-            {{ repo.name }}
-          </div>
-          <div class="col-span-5 py-4 px-6" data-cy="repository-owner">
-            {{ repo.owner.login }}
-          </div>
-          <div class="col-start-2 col-span-10 py-4 px-6">
-            @if (branchState[repo.id] && !branchState[repo.id].hasError()) {
-              @for (
-                branch of branchState[repo.id].request$() | async;
-                track branch.name;
-                let i = $index
-              ) {
-                <div [attr.data-cy]="'branch-index:' + i">
-                  <span class="pr-3">&#8226;</span>
-                  <span data-cy="branch-name">{{ branch.name }}</span>
-                  <span data-cy="branch-commit-sha"
-                    >({{ branch.commit.sha }})</span
-                  >
-                </div>
-              } @empty {
-                @if (branchState[repo.id].isPending()) {
-                  <gea-loading />
-                }
-              }
-            } @else {
-              <div class="flex flex-col items-center py-4">
-                <button
-                  geaBtn
-                  geaBtnIcon="refresh"
-                  geaBtnLabel="Retry branch fetch"
-                  geaBtnSize="small"
-                  (click)="branchState[repo.id].retry()"
-                ></button>
-              </div>
-            }
-          </div>
-        </div>
-      } @empty {
-        @if (reposState.isPending()) {
-          <gea-loading />
-        } @else {
-          <div class="flex flex-col items-center py-4">
-            User does not have public repositories.
-          </div>
+  @if (reposState) {
+    <gea-repository-list [state]="reposState">
+      <ng-template #details let-repo>
+        @if (branchState[repo.id]) {
+          <gea-branch-list [state]="branchState[repo.id]" />
         }
-      }
-    </div>
-  } @else if (reposState?.hasError()) {
-    <div class="flex flex-col items-center py-4">
-      {{ reposState?.errorMessage() }}
-    </div>
+      </ng-template>
+    </gea-repository-list>
   }
 </div>

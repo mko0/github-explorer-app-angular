@@ -1,0 +1,27 @@
+@if (!state().hasError()) {
+  @for (
+    branch of state().request$() | async;
+    track branch.name;
+    let i = $index
+  ) {
+    <div [attr.data-cy]="'branch-index:' + i">
+      <span class="pr-3">&#8226;</span>
+      <span data-cy="branch-name">{{ branch.name }}</span>
+      <span data-cy="branch-commit-sha">({{ branch.commit.sha }})</span>
+    </div>
+  } @empty {
+    @if (state().isPending()) {
+      <gea-loading />
+    }
+  }
+} @else {
+  <div class="flex flex-col items-center py-4">
+    <button
+      geaBtn
+      geaBtnIcon="refresh"
+      geaBtnLabel="Retry branch fetch"
+      geaBtnSize="small"
+      (click)="state().retry()"
+    ></button>
+  </div>
+}

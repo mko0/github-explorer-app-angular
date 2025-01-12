@@ -1,0 +1,53 @@
+<div class="bg-white rounded-md shadow overflow-x-auto">
+  @if (!state().hasError()) {
+    <div class="grid grid-cols-11">
+      <div class="font-bold pb-4 pt-6 px-6">No.</div>
+      <div
+        class="col-span-5 font-bold pb-4 pt-6 px-6"
+        data-cy="repository-header-name"
+      >
+        Repository name
+      </div>
+      <div
+        class="col-span-5 font-bold pb-4 pt-6 px-6"
+        data-cy="repository-header-owner"
+      >
+        Repository owner
+      </div>
+    </div>
+    @for (repo of state().request$() | async; track repo.id; let i = $index) {
+      <div
+        class="grid grid-cols-11 border-t hover:bg-slate-50"
+        [attr.data-cy]="'repository-id:' + repo.id"
+      >
+        <div class="py-4 px-6">{{ i + 1 }}.</div>
+        <div class="col-span-5 py-4 px-6" data-cy="repository-name">
+          {{ repo.name }}
+        </div>
+        <div class="col-span-5 py-4 px-6" data-cy="repository-owner">
+          {{ repo.owner.login }}
+        </div>
+        <div class="col-start-2 col-span-10 py-4 px-6">
+          @if (detailsRef) {
+            <ng-container
+              [ngTemplateOutlet]="detailsRef"
+              [ngTemplateOutletContext]="{ $implicit: repo }"
+            ></ng-container>
+          }
+        </div>
+      </div>
+    } @empty {
+      @if (state().isPending()) {
+        <gea-loading />
+      } @else {
+        <div class="flex flex-col items-center py-4">
+          User does not have public repositories.
+        </div>
+      }
+    }
+  } @else if (state().hasError()) {
+    <div class="flex flex-col items-center py-4">
+      {{ state().errorMessage() }}
+    </div>
+  }
+</div>

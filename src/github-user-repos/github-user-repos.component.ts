@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { LoadingComponent } from '../shared/components/loading/loading.component';
 import { RequestState } from '../shared/classes/request-state.class';
-import { ButtonDirective } from '../shared/directives/button.directive';
 import { SearchFormValue } from './user-search-form/user-search.form';
 import { UserSearchFormComponent } from './user-search-form/user-search-form.component';
 import {
@@ -10,6 +7,8 @@ import {
   GitHubRepository,
   GitHubBranch,
 } from './github-user-repos.service';
+import { RepositoryListComponent } from './repostitory-list/repository-list.component';
+import { BranchListComponent } from './branch-list/branch-list.component';
 
 /**
  * GitHub user repositories search view.
@@ -24,10 +23,8 @@ import {
   templateUrl: './github-user-repos.component.html',
   imports: [
     UserSearchFormComponent,
-    LoadingComponent,
-    ButtonDirective,
-    AsyncPipe,
-    NgTemplateOutlet,
+    RepositoryListComponent,
+    BranchListComponent,
   ],
   providers: [GitHubUserReposService],
 })
