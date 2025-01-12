@@ -50,7 +50,7 @@
                 </div>
               } @empty {
                 @if (branchState[repo.id].isPending()) {
-                  <ng-container *ngTemplateOutlet="loading"></ng-container>
+                  <gea-loading />
                 }
               }
             } @else {
@@ -69,7 +69,7 @@
         </div>
       } @empty {
         @if (reposState.isPending()) {
-          <ng-container *ngTemplateOutlet="loading"></ng-container>
+          <gea-loading />
         } @else {
           <div class="flex flex-col items-center py-4">
             User does not have public repositories.
@@ -83,11 +83,3 @@
     </div>
   }
 </div>
-
-<ng-template #loading>
-  <div class="flex flex-col items-center h-10">
-    <span class="text-slate-500 animate-spin material-symbols-outlined"
-      >progress_activity</span
-    >
-  </div>
-</ng-template>
