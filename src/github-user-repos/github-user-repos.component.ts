@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { RequestState } from '../shared/classes/request-state.class';
 import { SearchFormValue } from './user-search-form/user-search.form';
 import { UserSearchFormComponent } from './user-search-form/user-search-form.component';
@@ -20,7 +20,7 @@ import {
 @Component({
   selector: 'gea-github-user-repos',
   templateUrl: './github-user-repos.component.html',
-  imports: [UserSearchFormComponent, AsyncPipe],
+  imports: [UserSearchFormComponent, AsyncPipe, NgTemplateOutlet],
   providers: [GitHubUserReposService],
 })
 export class GithubUserReposComponent {

@@ -46,7 +46,8 @@
         "compose",
         "-f",
         "${workspaceFolder}/docker/docker-compose.dev.yml",
-        "up"
+        "up",
+        "--build"
       ],
       "problemMatcher": []
     },

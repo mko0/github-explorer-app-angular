@@ -1,50 +1,93 @@
-<gea-user-search-form (userSearch)="onUserSearch($event)" />
+<div class="flex flex-col items-center">
+  <gea-user-search-form class="m-6" (userSearch)="onUserSearch($event)" />
 
-@if (reposState && !reposState.hasError()) {
-  <div>
-    <div>No.</div>
-    <div data-cy="repository-header-name">Repository name</div>
-    <div data-cy="repository-header-owner">Repository owner</div>
-  </div>
-  @for (repo of reposState.request$() | async; track repo.id; let i = $index) {
-    <div [attr.data-cy]="'repository-id:' + repo.id">
-      <div>{{ i + 1 }}.</div>
-      <div data-cy="repository-name">
-        {{ repo.name }}
+  @if (reposState && !reposState.hasError()) {
+    <div class="bg-white rounded-md shadow overflow-x-auto">
+      <div class="grid grid-cols-11">
+        <div class="font-bold pb-4 pt-6 px-6">No.</div>
+        <div
+          class="col-span-5 font-bold pb-4 pt-6 px-6"
+          data-cy="repository-header-name"
+        >
+          Repository name
+        </div>
+        <div
+          class="col-span-5 font-bold pb-4 pt-6 px-6"
+          data-cy="repository-header-owner"
+        >
+          Repository owner
+        </div>
       </div>
-      <div data-cy="repository-owner">
-        {{ repo.owner.login }}
-      </div>
-      <div>
-        @if (branchState[repo.id] && !branchState[repo.id].hasError()) {
-          @for (
-            branch of branchState[repo.id].request$() | async;
-            track branch.name;
-            let i = $index
-          ) {
-            <div [attr.data-cy]="'branch-index:' + i">
-              <span data-cy="branch-name">{{ branch.name }}</span>
-              <span data-cy="branch-commit-sha">({{ branch.commit.sha }})</span>
-            </div>
-          } @empty {
-            @if (branchState[repo.id].isPending()) {
-              Loading ...
+      @for (
+        repo of reposState.request$() | async;
+        track repo.id;
+        let i = $index
+      ) {
+        <div
+          class="grid grid-cols-11 border-t hover:bg-slate-50"
+          [attr.data-cy]="'repository-id:' + repo.id"
+        >
+          <div class="py-4 px-6">{{ i + 1 }}.</div>
+          <div class="col-span-5 py-4 px-6" data-cy="repository-name">
+            {{ repo.name }}
+          </div>
+          <div class="col-span-5 py-4 px-6" data-cy="repository-owner">
+            {{ repo.owner.login }}
+          </div>
+          <div class="col-start-2 col-span-10 py-4 px-6">
+            @if (branchState[repo.id] && !branchState[repo.id].hasError()) {
+              @for (
+                branch of branchState[repo.id].request$() | async;
+                track branch.name;
+                let i = $index
+              ) {
+                <div [attr.data-cy]="'branch-index:' + i">
+                  <span class="pr-3">&#8226;</span>
+                  <span data-cy="branch-name">{{ branch.name }}</span>
+                  <span data-cy="branch-commit-sha"
+                    >({{ branch.commit.sha }})</span
+                  >
+                </div>
+              } @empty {
+                @if (branchState[repo.id].isPending()) {
+                  <ng-container *ngTemplateOutlet="loading"></ng-container>
+                }
+              }
+            } @else {
+              <div class="flex flex-col items-center py-4">
+                <button
+                  class="flex place-items-center shadow hover:cursor-pointer disabled:opacity-30 transition rounded bg-white text-gray-700 hover:text-black hover:bg-gray-50 border px-2 py-2 text-sm"
+                  type="button"
+                  (click)="branchState[repo.id].retry()"
+                >
+                  <span class="material-symbols-outlined">refresh</span>
+                  <span class="pl-2">Retry branch fetch</span>
+                </button>
+              </div>
             }
-          }
+          </div>
+        </div>
+      } @empty {
+        @if (reposState.isPending()) {
+          <ng-container *ngTemplateOutlet="loading"></ng-container>
         } @else {
-          <button type="button" (click)="branchState[repo.id].retry()">
-            Retry
-          </button>
+          <div class="flex flex-col items-center py-4">
+            User does not have public repositories.
+          </div>
         }
-      </div>
+      }
     </div>
-  } @empty {
-    @if (reposState.isPending()) {
-      Loading ...
-    } @else {
-      <div>User does not have public repositories.</div>
-    }
+  } @else if (reposState?.hasError()) {
+    <div class="flex flex-col items-center py-4">
+      {{ reposState?.errorMessage() }}
+    </div>
   }
-} @else if (reposState?.hasError()) {
-  {{ reposState?.errorMessage() }}
-}
+</div>
+
+<ng-template #loading>
+  <div class="flex flex-col items-center h-10">
+    <span class="text-slate-500 animate-spin material-symbols-outlined"
+      >progress_activity</span
+    >
+  </div>
+</ng-template>

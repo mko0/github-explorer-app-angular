@@ -16,7 +16,7 @@ import { AbstractControl } from '@angular/forms';
 export class ControlErrorComponent {
   readonly control = input.required<AbstractControl>();
 
-  readonly errorMessage = computed(
+  protected readonly errorMessage = computed(
     () => Object.values(this.control()?.errors as Record<string, string>)[0],
   );
 }

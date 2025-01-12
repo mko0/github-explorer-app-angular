@@ -13,7 +13,6 @@ import { GithubUserReposComponent } from '../github-user-repos/github-user-repos
 @Component({
   selector: 'gea-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
   imports: [GithubUserReposComponent],
 })
 export class AppComponent {

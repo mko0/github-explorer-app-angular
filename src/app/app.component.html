@@ -1,23 +1,26 @@
-<div>
-  <header>
-    <div>
-      <h2 data-cy="header">GitHub user repository explorer</h2>
+<div class="bg-gray-100 flex flex-col h-full min-h-screen">
+  <header class="w-full bg-white px-12 py-4 shadow">
+    <div class="flex justify-between items-center w-full max-w-8xl mx-auto">
+      <h2 class="text-lg font-medium" data-cy="header">
+        GitHub user repository explorer
+      </h2>
     </div>
   </header>
 
-  <div>
-    <main>
-      <div>
+  <div class="flex flex-grow py-16 px-12 h-full">
+    <main class="max-w-6xl mx-auto w-full">
+      <div class="space-y-4">
         <gea-github-user-repos />
       </div>
     </main>
   </div>
 
-  <footer>
-    <div>
-      <div>Marcin K. 2025</div>
-      <div>
+  <footer class="w-full bg-white px-12 py-4 shadow">
+    <div class="flex w-full max-w-8xl mx-auto">
+      <div class="flex-none w-48">Marcin K. 2025</div>
+      <div class="flex-none w-24">
         <a
+          class="text-blue-600 visited:text-purple-600 hover:underline hover:underline-offset-2"
           [href]="externalLink.gitHub"
           target="_blank"
           title="GitHub"
@@ -26,8 +29,9 @@
           >GitHub</a
         >
       </div>
-      <div>
+      <div class="flex-none w-24">
         <a
+          class="text-blue-600 visited:text-purple-600 hover:underline hover:underline-offset-2"
           [href]="externalLink.linkedIn"
           target="_blank"
           title="LinkedIn"

@@ -1,14 +1,23 @@
 <form [formGroup]="form()" (submit)="onSubmit()">
-  <div>
+  <div class="flex">
     <input
-      name="username"
+      class="relative self-center px-6 py-3 w-48 h-full rounded-tl-md rounded-bl-md shadow focus:shadow-outline box-border focus:border-1 box-border"
+      [class.border-rose-600]="
+        form().controls.username.invalid && form().controls.username.touched
+      "
       [formControl]="form().controls.username"
       placeholder="GitHub username ..."
       data-cy="username-input"
     />
-    <gea-control-error [control]="form().controls.username" />
+    <button
+      class="flex place-items-center shadow hover:cursor-pointer disabled:opacity-30 transition rounded-tr-md rounded-br-md bg-blue-500 text-white hover:bg-blue-600 px-3 py-3"
+      [disabled]="!form().valid"
+      type="submit"
+      data-cy="search-button"
+    >
+      <span class="material-symbols-outlined">search</span>
+      <span class="pl-2">Search</span>
+    </button>
   </div>
-  <button [disabled]="!form().valid" type="submit" data-cy="search-button">
-    <div>Search</div>
-  </button>
+  <gea-control-error [control]="form().controls.username" />
 </form>
