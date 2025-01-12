@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  github-explorer-app-angular-dev:
+    image: github-explorer-app-angular-dev
+    ports:
+      - 4201:4200
+    command: "ng serve --host 0.0.0.0 --poll=2000 --port 4200 --disable-host-check"
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.dev
+    volumes:
+      - ../:/usr/src/app
+      - /usr/src/app/node_modules

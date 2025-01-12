@@ -37,6 +37,31 @@
           }
         }
       }
+    },
+    {
+      "type": "shell",
+      "label": "Docker development",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "${workspaceFolder}/docker/docker-compose.dev.yml",
+        "up"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "Docker build",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "${workspaceFolder}/docker/docker-compose.yml",
+        "up",
+        "--build"
+      ],
+      "problemMatcher": []
     }
   ]
 }
