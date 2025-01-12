@@ -1,0 +1,14 @@
+<form [formGroup]="form()" (submit)="onSubmit()">
+  <div>
+    <input
+      name="username"
+      [formControl]="form().controls.username"
+      placeholder="GitHub username ..."
+      data-cy="username-input"
+    />
+    <gea-control-error [control]="form().controls.username" />
+  </div>
+  <button [disabled]="!form().valid" type="submit" data-cy="search-button">
+    <div>Search</div>
+  </button>
+</form>

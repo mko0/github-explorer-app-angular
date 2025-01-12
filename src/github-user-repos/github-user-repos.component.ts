@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { SearchFormValue } from './user-search-form/user-search.form';
+import { UserSearchFormComponent } from './user-search-form/user-search-form.component';
 
 /**
- * Search for GitHub user's repositories.
+ * GitHub user repositories search view.
  *
  * @example
  * ```html
@@ -11,5 +13,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'gea-github-user-repos',
   templateUrl: './github-user-repos.component.html',
+  imports: [UserSearchFormComponent],
 })
-export class GithubUserReposComponent {}
+export class GithubUserReposComponent {
+  onUserSearch(value: SearchFormValue): void {
+    console.debug(value);
+  }
+}

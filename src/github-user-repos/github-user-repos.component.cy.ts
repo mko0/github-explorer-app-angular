@@ -1,6 +1,6 @@
 import { GithubUserReposComponent } from './github-user-repos.component';
+import { ERROR_MESSAGE_EL } from '../shared/components/control-error/control-error.component.cy';
 
-const ERROR_MESSAGE_EL = '[data-cy="error-message"]';
 const USERNAME_INPUT_EL = '[data-cy="username-input"]';
 const SEARCH_BUTTOM_EL = '[data-cy="search-button"]';
 const REPO_HEADER_NAME_EL = '[data-cy="repository-header-name"]';
