@@ -1,5 +1,7 @@
-import { GithubUserReposComponent } from './github-user-repos.component';
+import { provideHttpClient } from '@angular/common/http';
+import { GitHubApiConfiguration } from '../api/github-client';
 import { ERROR_MESSAGE_EL } from '../shared/components/control-error/control-error.component.cy';
+import { GithubUserReposComponent } from './github-user-repos.component';
 
 const USERNAME_INPUT_EL = '[data-cy="username-input"]';
 const SEARCH_BUTTOM_EL = '[data-cy="search-button"]';
@@ -12,10 +14,17 @@ const BRANCH_INDEX_EL = (i: number) => `[data-cy="branch-index:${i}"]`;
 const BRANCH_NAME_EL = '[data-cy="branch-name"]';
 const BRANCH_COMMIT_SHA_EL = '[data-cy="branch-commit-sha"]';
 const API_URL = 'https://test.api';
+const provideGitHubApiConfiguration = () => ({
+  provide: GitHubApiConfiguration,
+  useFactory: () => new GitHubApiConfiguration({ basePath: API_URL }),
+});
 
 describe('GithubUserReposComponent', () => {
   describe('As an application user I would like to type a username', () => {
-    const setup = () => cy.mount(GithubUserReposComponent);
+    const setup = () =>
+      cy.mount(GithubUserReposComponent, {
+        providers: [provideHttpClient(), provideGitHubApiConfiguration()],
+      });
 
     it('should be allow to type a username and search button should’t be disabled', () => {
       const username = 'test_username';
@@ -55,7 +64,9 @@ describe('GithubUserReposComponent', () => {
   describe('As an application user, given a username I would like to see a list of user’s github repositories', () => {
     const setup = () => {
       const username = 'test_username';
-      cy.mount(GithubUserReposComponent);
+      cy.mount(GithubUserReposComponent, {
+        providers: [provideHttpClient(), provideGitHubApiConfiguration()],
+      });
       cy.get(USERNAME_INPUT_EL).type(username);
       const repoName1 = 'repo_1_name';
       const repoName3 = 'repo_3_name';

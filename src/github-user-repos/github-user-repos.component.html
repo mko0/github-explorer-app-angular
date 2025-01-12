@@ -1,1 +1,50 @@
 <gea-user-search-form (userSearch)="onUserSearch($event)" />
+
+@if (reposState && !reposState.hasError()) {
+  <div>
+    <div>No.</div>
+    <div data-cy="repository-header-name">Repository name</div>
+    <div data-cy="repository-header-owner">Repository owner</div>
+  </div>
+  @for (repo of reposState.request$() | async; track repo.id; let i = $index) {
+    <div [attr.data-cy]="'repository-id:' + repo.id">
+      <div>{{ i + 1 }}.</div>
+      <div data-cy="repository-name">
+        {{ repo.name }}
+      </div>
+      <div data-cy="repository-owner">
+        {{ repo.owner.login }}
+      </div>
+      <div>
+        @if (branchState[repo.id] && !branchState[repo.id].hasError()) {
+          @for (
+            branch of branchState[repo.id].request$() | async;
+            track branch.name;
+            let i = $index
+          ) {
+            <div [attr.data-cy]="'branch-index:' + i">
+              <span data-cy="branch-name">{{ branch.name }}</span>
+              <span data-cy="branch-commit-sha">({{ branch.commit.sha }})</span>
+            </div>
+          } @empty {
+            @if (branchState[repo.id].isPending()) {
+              Loading ...
+            }
+          }
+        } @else {
+          <button type="button" (click)="branchState[repo.id].retry()">
+            Retry
+          </button>
+        }
+      </div>
+    </div>
+  } @empty {
+    @if (reposState.isPending()) {
+      Loading ...
+    } @else {
+      <div>User does not have public repositories.</div>
+    }
+  }
+} @else if (reposState?.hasError()) {
+  {{ reposState?.errorMessage() }}
+}
