@@ -3,7 +3,7 @@ import { AppGlobalErrorHandler } from './app-global.error-handler';
 describe('AppGlobalErrorHandler', () => {
   describe('handleError()', () => {
     it('should call console.error with error object', () => {
-      const error = new Error('Err!');
+      const error = { message: 'Err!' };
       const tested = new AppGlobalErrorHandler();
       const spy = spyOn(window.console, 'error');
 
@@ -16,7 +16,7 @@ describe('AppGlobalErrorHandler', () => {
     });
 
     it('should open alert window with error message', () => {
-      const error = new Error('Err!');
+      const error = { message: 'Err!' };
       const tested = new AppGlobalErrorHandler();
       const spy = spyOn(window, 'alert');
 

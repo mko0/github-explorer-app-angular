@@ -44,6 +44,7 @@ Thumbs.db
 # Project
 /.husky
 /cypress/screenshots
+/cypress/downloads
 /test-output
 /src/api/github-client/.openapi-generator
 /src/api/github-client/git_push.sh
